@@ -1,0 +1,19 @@
+{
+  "index": {
+    "analysis": {
+      "analyzer": {
+        "lowercasespaceanalyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace",
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "analyzer_keyword": {
+          "tokenizer": "keyword",
+          "filter": "lowercase"
+        }
+      }
+    }
+  }
+}

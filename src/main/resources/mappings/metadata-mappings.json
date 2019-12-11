@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "properties": {
+      "id": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "nameRaw": {
+        "type": "keyword"
+      },
+      "func": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "company": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "type": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "state": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "status": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        },
+        "analyzer": "lowercasespaceanalyzer"
+      },
+      "modifiedDateTime" :{
+        "type": "date"
+      }
+    }
+  }
+}
