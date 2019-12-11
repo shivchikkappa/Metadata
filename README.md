@@ -9,9 +9,10 @@ For more detailed information of the model object, please refer to the swagger A
 
 # Technologies
 JDK 1.8.0
-Maven 3.6.1
 ElasticSearch 7.0.0
 Springboot 2.2.2
+Maven 3.6.1
+Git 2.14.1
 Swagger 2.9.2
 AWS EC2
 
