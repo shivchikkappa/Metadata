@@ -36,7 +36,8 @@ public class SearchMetadataResource {
     })
     @GetMapping(value = "/company/{company}/customer/metadata/{id}", produces = "application/json")
     @ResponseBody
-    public ResponseEntity getMetadata(@PathVariable("id") String id) {
+    public ResponseEntity getMetadata(@PathVariable("company") String company,
+                                      @PathVariable("id") String id) {
 
         meterRegistry.counter("getMetadata Resource").increment();
 
