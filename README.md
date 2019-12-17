@@ -21,7 +21,7 @@ Git 2.14.1
 
 Swagger 2.9.2
 
-AWS EC2 instances for deployment.
+AWS EC2 instances for deployment. t2.micro for springboot microservice and t2.large for ElasticSearch
 
 # Build, Run and test application
 Clone the repo from github
