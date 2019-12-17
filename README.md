@@ -30,7 +30,7 @@ cd Metadata
 
 mvn clean install
 
-Start ElasticSearch on default port 9020.
+Start ElasticSearch on default ports or configure the spring.data.elasticsearch.* in application.properties file for custom configurations
 
 java -jar target/CustomerMetadata-0.0.1-SNAPSHOT.jar
 
