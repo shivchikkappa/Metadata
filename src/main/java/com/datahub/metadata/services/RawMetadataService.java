@@ -6,4 +6,6 @@ public interface RawMetadataService {
 
     RawMetadata createRawMetaData(RawMetadata rawMetadata);
 
+    void deleteRawMetadata(String id);
+
 }

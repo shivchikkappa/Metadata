@@ -9,4 +9,6 @@ public interface MetadataElasticService {
     String generateElasticId();
 
     BaseMetadata getDataByNameAndFunc(String name, String func);
+
+    public void updateSourceDataIngested(String id, boolean isIngested);
 }

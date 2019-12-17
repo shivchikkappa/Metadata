@@ -6,4 +6,6 @@ public interface SourceMetadataService {
 
     SourceMetadata createSourceMetaData(SourceMetadata sourceDataReq);
 
+    SourceMetadata updateSourceDataIngested(String id);
+
 }

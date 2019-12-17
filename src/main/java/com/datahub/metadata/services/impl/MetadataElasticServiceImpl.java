@@ -2,14 +2,15 @@ package com.datahub.metadata.services.impl;
 
 import com.datahub.metadata.dao.CustomerMetadataElasticRepository;
 import com.datahub.metadata.model.BaseMetadata;
-import com.datahub.metadata.model.SourceMetadata;
 import com.datahub.metadata.services.MetadataElasticService;
 import com.datahub.metadata.utils.Constants;
 import com.datahub.metadata.utils.RequestContext;
 import com.google.common.base.Stopwatch;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 @Service("MetadataElasticService")
@@ -44,7 +46,6 @@ public class MetadataElasticServiceImpl implements MetadataElasticService {
         final Stopwatch timer = Stopwatch.createStarted();
 
         try {
-
             customerMetadataElasticRepository.save(baseMetadata);
         } catch (Exception ex) {
             LOG.error("Failed to insert to elastic search, function={}, name={}, exception={}", baseMetadata.getFunc(), baseMetadata.getName());
@@ -63,7 +64,7 @@ public class MetadataElasticServiceImpl implements MetadataElasticService {
 
         final Stopwatch timer = Stopwatch.createStarted();
 
-        SourceMetadata sourceMetadata = new SourceMetadata();
+        BaseMetadata baseMetadata = new BaseMetadata();
 
         try {
 
@@ -76,7 +77,7 @@ public class MetadataElasticServiceImpl implements MetadataElasticService {
                 .withQuery(queryBuilder)
                 .build();
 
-            elasticsearchTemplate.queryForPage(searchQuery, SourceMetadata.class, new SearchResultMapper() {
+            elasticsearchTemplate.queryForPage(searchQuery, BaseMetadata.class, new SearchResultMapper() {
                 @Override
                 public <T> AggregatedPage<T> mapResults(SearchResponse searchResponse, Class<T> aClass, Pageable pageable) {
 
@@ -86,8 +87,8 @@ public class MetadataElasticServiceImpl implements MetadataElasticService {
                         }
                         Map<String, Object> source = searchHit.getSourceAsMap();
 
-                        sourceMetadata.setId((String) source.get(Constants.ELASTIC_ID_KEY));
-                        sourceMetadata.setName((String) source.get(Constants.ELASTIC_NAME_KEY));
+                        baseMetadata.setId((String) source.get(Constants.ELASTIC_ID_KEY));
+                        baseMetadata.setName((String) source.get(Constants.ELASTIC_NAME_KEY));
                     }
                     return null;
                 }
@@ -99,10 +100,34 @@ public class MetadataElasticServiceImpl implements MetadataElasticService {
             });
 
         } finally {
-            LOG.info("Time taken in ms to getSrcDataByName for company={}, name={}, time={}",
-                RequestContext.getCompany(),name,timer.elapsed(TimeUnit.MILLISECONDS));
+            LOG.info("Time taken in ms to getSrcDataByName for company={}, name={}, func={}, time={}",
+                RequestContext.getCompany(),name,func,timer.elapsed(TimeUnit.MILLISECONDS));
         }
 
-        return sourceMetadata;
+        return baseMetadata;
+    }
+
+    @Override
+    public void updateSourceDataIngested(String id, boolean isIngested) {
+
+        final Stopwatch timer = Stopwatch.createStarted();
+
+        try {
+
+            UpdateRequest updateRequest = new UpdateRequest(Constants.ELASTIC_CUSTOMER_METADATA_INDEX,
+                Constants.ELASTIC_CUSTOMER_METADATA_TYPE, id).doc(jsonBuilder()
+                .startObject()
+                .field("dataIngested", isIngested)
+                .field("modifiedDateTime", new DateTime().toString())
+                .endObject());
+
+            elasticsearchTemplate.getClient().update(updateRequest).get();
+
+        } catch (Exception ex) {
+            LOG.error("Failed to updateSourceDataIngested, id={}, exception={}", id, ex);
+        } finally {
+            LOG.info("Time taken in ms to updateSourceDataIngested, time={}", timer.elapsed(TimeUnit.MILLISECONDS));
+        }
+
     }
 }

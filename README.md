@@ -47,5 +47,14 @@ Select the HTTP request method
 
 Click on "Try it out" to fill in the request body for POST methods and Execute the request
 
+GET /company/{company}/customer/metadata/{id} -- API to fetch individual source/raw/target metadata
 
-Sample "Try it out" for Search GET method, use "cupid" for company and "" for id value to fetch the existing value.
+use "cupid" for company and "C9192009C8BD4E5585B184C0DD9C9425" for id value to fetch the source metadata.
+
+use "cupid" for company and "479BA348C4F94D7CAFC39A197D779919" for id value to fetch the target metadata.
+
+use "cupid" for company and "3A40E5B807C44A6A9CBD968FBA6BD00C" for id value to fetch the raw metadata.
+
+GET /company/{company}/customer/metadata/source/{id} -- API to fetch all the raw data associated with source
+
+use "cupid" for company and "C9192009C8BD4E5585B184C0DD9C9425" for source id value 

@@ -23,15 +23,14 @@ import java.io.Serializable;
     {
         @JsonSubTypes.Type(value = SourceMetadata.class),
         @JsonSubTypes.Type(value = RawMetadata.class),
-        /*@JsonSubTypes.Type(value = CdpMetadata.class),
-        @JsonSubTypes.Type(value = TargetMetadata.class)*/
+        @JsonSubTypes.Type(value = TargetMetadata.class)
     }
 )
 public class BaseMetadata implements Serializable {
 
     private static final long serialVersionUID = 1409715715962049158L;
 
-    @ApiModelProperty(notes = "Attribute unique Id")
+    @ApiModelProperty(notes = "Attribute unique Id, System generated value")
     private String id;
 
     @ApiModelProperty(hidden = true)
@@ -40,7 +39,7 @@ public class BaseMetadata implements Serializable {
     @ApiModelProperty(notes = "Function type of the metadata. System generated value")
     private String func;
 
-    @ApiModelProperty(notes = "Attribute name")
+    @ApiModelProperty(notes = "Attribute name", required = true)
     private String name;
 
     @ApiModelProperty(notes = "Attribute raw name", hidden = true)

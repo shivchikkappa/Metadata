@@ -17,7 +17,7 @@ public class SourceMetadata extends BaseMetadata implements Serializable {
 
     private static final long serialVersionUID = 1409715715962049158L;
 
-    @ApiModelProperty(notes = "Type of the source; For example ftp,oracle,kafka")
+    @ApiModelProperty(notes = "Type of the source; For example ftp,sftp,s3")
     private String type;
 
     @ApiModelProperty(notes = "Source rank")
