@@ -39,7 +39,12 @@ Application will start running on port 9080
 Application admin port is configured on port 9085
 
 # API documentation and invoking REST API
-Access the Swagger URI at http://3.133.99.71:9080/swagger-ui.html#/ 
+
+Two options to test the application deployed on AWS
+
+1. Access the shared PostMan work space using link https://www.getpostman.com/collections/33084858293e163ded55 
+
+2. Access the Swagger URI at http://3.133.99.71:9080/swagger-ui.html#/ 
 
 Select on raw-metadata-resource or search-metadata-resource or source-metadata-resource or target-metadata-resource
 
