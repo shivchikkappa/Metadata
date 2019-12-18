@@ -1,5 +1,19 @@
 # Metadata
-MicroService to store the metadata for datahub. Different types of Metadata are as follows
+Metadata in data integration hub represents all of the "Control" data for the DIH and overall platform function sets. Each data stream processor, 
+platform service, or platform function acts as producer/consumer client of the DIH Metadata API. The Metadata API would be implemented 
+as a simple micro-service with a document based data store to allow for quick, easy, and flexible development requirements.
+
+Any document storage mechanism should be able to handle the minimum requirements for this service, using Elasticsearch as 
+the data store, beyond a simple document storage server, it offers additional indexing, searching/query, and analytic capabilities 
+to the consuming service. These functions may not be required currently for the Metadata API function, 
+but can easily be added in the future if built on top of Elasticsearch, rather than just a document store like MongoDB.
+
+With an estimated size of about 500 - 1024 bytes per document with an average of 10,000 documents per company, 
+the max storage requirement for each company would approximately be 5MB - 10MB of data per company. The amount of data storage 
+required per company is negligible in terms of scalability, so a single cluster should be able to support the entire 
+data set for the entire platform.
+
+Different types of Metadata are as follows
 
 1. SourceData: Used to capture the source information like host, port, type and directory path to read the file. Common 
                source types would be FTP, SFTP, S3
